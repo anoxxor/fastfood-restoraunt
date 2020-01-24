@@ -1,0 +1,23 @@
+.fast {
+    transition: .3s;
+}
+
+.smooth {
+    transition: .5s;
+}
+
+.slow {
+    transition: .8s;
+}
+
+.snail {
+    transition: 1.2s;
+}
+
+$delay-step: 0.15s;
+$delay-levels: 20; 
+@for $level from 1 through $delay-levels {
+    .delay-#{$level} {
+        transition-delay: $delay-step * $level;
+    }
+}

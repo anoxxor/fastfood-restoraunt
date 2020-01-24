@@ -1,0 +1,14 @@
+$color-attention: #FF0000;
+$color-accent: #F8C100;
+$color-light: #FFF;
+$color-dark: #121212;
+$color-muted: transparentize($color-light, 0.5);
+$color-headerBorders: transparentize($color-light, 0.9);
+$color-headerDarkBg: transparentize($color-dark, 0.1);
+$color-heroDimming: transparentize($color-dark, 0.3);
+
+$padding-headerItem: 10;
+
+$tr-normal: .3s;
+$tr-longer: .5s;
+$tr-snail: 1s;

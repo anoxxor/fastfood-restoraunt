@@ -1,0 +1,15 @@
+@mixin content-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin formItem-clear {
+    border: none;
+    background: none;
+    outline: none;
+}
+
+@mixin link-clear {
+    text-decoration: none;
+}
