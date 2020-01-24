@@ -14,7 +14,7 @@
     transition: 1.2s;
 }
 
-$delay-step: 0.15s;
+$delay-step: 0.075s;
 $delay-levels: 20; 
 @for $level from 1 through $delay-levels {
     .delay-#{$level} {

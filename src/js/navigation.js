@@ -1,93 +1,98 @@
-(function() {
+$(() => {
 
-let scrollDur = 600;
+let tracked = 'section, footer';
+let topOffsets;
+let lastIndex;
+let navLinks = $('.nav__item, [data-role="nav-link"]');
+let autoscroll = false;
 
-function updateNav() {
-    let currIndex = $.scrollify.currentIndex();
-    let currElem = $(".nav__item").get(currIndex);
-    let currElem$ = $(currElem);
-
-    $('.nav__item.active').removeClass('active');
-
-    let indicator$ = $('.nav__indicator')
-    if (!indicator$.length) {
-        indicator$ = $('<div class="nav__indicator" style="opacity: 0"></div>');
-        $('.nav').append(indicator$);
-    }
-
-    let currTop = currElem$.position().top;
-    let indicatorTop = currTop + currElem$.outerHeight(true)/2 - indicator$.outerHeight(true)/2;
-    
-    currElem$.addClass('active');
-    indicator$
-        .stop()
-        .addClass('moving')
-        .animate(
-            {top: indicatorTop},
-            scrollDur,
-            'easeOutQuad',
-            function() {
-                $(this).removeClass('moving').animate({opacity: 1});
-            });
+function updateOffsets() {
+    topOffsets = [];
+    $(tracked).each(function(_, elem) {
+        topOffsets.push($(elem).offset().top);
+    });
 }
+updateOffsets();
 
-function updateMenuSection() {
-    const MENU_INDEX = 2;
-
-    if ($.scrollify.currentIndex() === MENU_INDEX) {
-        $('.side-menu').addClass('hidden'); 
+function elemChangeHandler(index) {
+    let sideMenu$ = $('.side-menu');
+    if (index === 2 || index === 3) {
+        sideMenu$.addClass('hidden');
         $('.nav').addClass('hidden');
         $('.nav-slideIn').removeClass('hidden');
-        return;
+    } else {
+        sideMenu$.removeClass('hidden');
+        $('.nav').removeClass('hidden');
+        $('.nav-slideIn').addClass('hidden');
     }
-        
-    $('.side-menu').removeClass('hidden');
-    $('.nav').removeClass('hidden');
-    $('.nav-slideIn').addClass('hidden');
+
+    updateIndicator(index);    
 }
 
+function updateIndicator(index) {
+    $('.nav__item.active').removeClass('active');
+    let curNavItem$ = $($('.nav__item').get(index));
+    curNavItem$.addClass('active');
 
-
-$.easing.easeOutCubic = (t) => {
-    return 1-Math.pow(1-t,3);
-}
-
-$.easing.easeOutQuad = (x,t,b,c,d) => {
-    return-c*(t/=d)*(t-2)+b;
-}
-
-$.scrollify({
-    section: 'section, footer',
-    scrollSpeed: scrollDur,
-    easing: 'easeOutCubic',
-    before: () => {
-        updateNav();
-        updateMenuSection();
+    let indicator$ = $('.nav__indicator');
+    if (!indicator$.length) {
+        indicator$ = $('<div class="nav__indicator"></div>')
+        $('.nav').append(indicator$);
     }
-});
-$.scrollify.update();
-setTimeout(() => {
-    updateNav();
-    updateMenuSection();
-}, 100);
+    indicator$.addClass('moving');
+    indicator$.stop().animate({
+        top: curNavItem$.position().top + curNavItem$.outerHeight(true)/2 - indicator$.outerHeight(true)/2,
+    },
+    () => {indicator$.removeClass('moving')});
+}
 
+function scrollTo(index, callback) {
+    let offsetTop = topOffsets[index];
+    elemChangeHandler(index);
+    autoscroll = true;
+    $('body, html').animate({scrollTop: offsetTop}, 600, () => {
+        autoscroll = false;
+        lastIndex = index;
+        if (typeof callback === 'function') callback();
+    });
+}
 
+navLinks.click(function(e) {
+    let target = $(this).data('target');
+    if (target !== lastIndex) scrollTo(target);
+})
 
-$(window).on('resize', () => {updateNav()});
+$(window).on('resize', () => {
+    updateOffsets();
+    updateIndicator(lastIndex);
+})
 
-$('.nav__item, [data-role="nav-link"]').click(function(e) {
-    e.preventDefault();
-    $.scrollify.move($(this).data('target'));
+$(window).on('scroll', function() {
+    if (autoscroll) return;
+
+    let window$ = $(window);
+    let scrollCenter = window$.scrollTop() + $('section').height()/2; // в хроме $(window).height() возвращает высоту body, а не вьюпорта
+    let curElemIndex;
+    for (let i=0; i < topOffsets.length; i++) {
+        if ( (scrollCenter >= topOffsets[i] && scrollCenter < topOffsets[i+1]) || (scrollCenter >= topOffsets[i] && typeof topOffsets[i+1] === 'undefined') ) {
+            curElemIndex = i;
+        }
+    }
+    if (curElemIndex !== lastIndex) {
+        console.log(curElemIndex);
+        lastIndex = curElemIndex;
+        elemChangeHandler(curElemIndex);
+    } 
 })
 
 $('.nav-slideIn-btn').click(function() {
     $('.nav').removeClass('hidden');
     $('.nav-slideIn').addClass('hidden');
-})
+});
 
 $('.menu').click(function() {
     $('.nav').addClass('hidden');
     $('.nav-slideIn').removeClass('hidden');
-})
+});
 
-})();
+});
