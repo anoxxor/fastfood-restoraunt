@@ -1,0 +1,11 @@
+@mixin from($size) {
+    @include media-breakpoint-down($size) {
+        @content;
+    }
+}
+
+@mixin short {
+    @media (max-height: 540px) {
+        @content;
+    }
+}

@@ -20,6 +20,11 @@ $(window).on("load", () => {
 
 $('.header__menu').click(function() {
     $('.side-menu').toggleClass('hidden');
+    if ($('.side-menu').hasClass('hidden')) {
+        $('.side-menu').addClass('user-hidden');
+    } else {
+        $('.side-menu').removeClass('user-hidden');
+    }
 });
 
 })();

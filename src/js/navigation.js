@@ -1,4 +1,4 @@
-$(() => {
+(() => {
 
 let tracked = 'section, footer';
 let topOffsets;
@@ -21,7 +21,7 @@ function elemChangeHandler(index) {
         $('.nav').addClass('hidden');
         $('.nav-slideIn').removeClass('hidden');
     } else {
-        sideMenu$.removeClass('hidden');
+        if (!sideMenu$.hasClass('user-hidden')) sideMenu$.removeClass('hidden');
         $('.nav').removeClass('hidden');
         $('.nav-slideIn').addClass('hidden');
     }
@@ -31,26 +31,29 @@ function elemChangeHandler(index) {
 
 function updateIndicator(index) {
     $('.nav__item.active').removeClass('active');
+    console.log(index);
     let curNavItem$ = $($('.nav__item').get(index));
     curNavItem$.addClass('active');
 
     let indicator$ = $('.nav__indicator');
     if (!indicator$.length) {
-        indicator$ = $('<div class="nav__indicator"></div>')
+        indicator$ = $('<div class="nav__indicator"></div>').hide();
         $('.nav').append(indicator$);
     }
     indicator$.addClass('moving');
     indicator$.stop().animate({
         top: curNavItem$.position().top + curNavItem$.outerHeight(true)/2 - indicator$.outerHeight(true)/2,
     },
-    () => {indicator$.removeClass('moving')});
+    () => {indicator$.removeClass('moving').show()});
 }
 
 function scrollTo(index, callback) {
+    if (index > topOffsets.length-1) index = topOffsets.length - 1;
+    if (index < 0) index = 0;
     let offsetTop = topOffsets[index];
     elemChangeHandler(index);
     autoscroll = true;
-    $('body, html').animate({scrollTop: offsetTop}, 600, () => {
+    $('body, html').stop().animate({scrollTop: offsetTop}, 600, () => {
         autoscroll = false;
         lastIndex = index;
         if (typeof callback === 'function') callback();
@@ -71,7 +74,7 @@ $(window).on('scroll', function() {
     if (autoscroll) return;
 
     let window$ = $(window);
-    let scrollCenter = window$.scrollTop() + $('section').height()/2; // в хроме $(window).height() возвращает высоту body, а не вьюпорта
+    let scrollCenter = window$.scrollTop() + $('section').height()/2; // в хроме $(window).height() возвращает высоту всего документа, а не вьюпорта
     let curElemIndex;
     for (let i=0; i < topOffsets.length; i++) {
         if ( (scrollCenter >= topOffsets[i] && scrollCenter < topOffsets[i+1]) || (scrollCenter >= topOffsets[i] && typeof topOffsets[i+1] === 'undefined') ) {
@@ -79,7 +82,6 @@ $(window).on('scroll', function() {
         }
     }
     if (curElemIndex !== lastIndex) {
-        console.log(curElemIndex);
         lastIndex = curElemIndex;
         elemChangeHandler(curElemIndex);
     } 
@@ -95,4 +97,67 @@ $('.menu').click(function() {
     $('.nav-slideIn').removeClass('hidden');
 });
 
-});
+
+
+
+
+// move handlers
+
+function overDownHandler() {
+    console.log('overdown');
+}
+
+function overUpHandler() {
+    console.log('overup');
+}
+
+function downHandler(touchLine) {
+    let curElemIndex = lastIndex;
+    if (curElemIndex === topOffsets.lenhts - 1) {
+        overDownHandler();
+        return;
+    }
+    scrollTo(curElemIndex + 1);
+
+}
+
+function upHandler(touchLine) {
+    let curElemIndex = lastIndex;
+    if (curElemIndex === 0) {
+        overUpHandler();
+        return;
+    };
+    scrollTo(curElemIndex - 1);
+}
+
+
+// attaching
+
+// $(window).on('touchstart', onTouchstart);
+// $(window).on('touchend', onTouchend);
+// $(window).on('wheel mousewheel MozMousePixelScroll', onWheel);
+
+
+// event handlers
+
+let touchstartPos;
+
+function onWheel(e) {
+    if (autoscroll) return;
+    e = e.originalEvent;
+    var delta = e.deltaY || e.detail || e.wheelDelta;
+    delta < 0 ? upHandler() : downHandler();
+}
+
+function onTouchstart(e) {
+    if (autoscroll) return;
+    touchstartPos = e.changedTouches[0].pageY;
+}
+
+function onTouchend(e) {
+    if (autoscroll) return;
+    let touchLine = e.changedTouches[0].pageY - touchstartPos;
+    touchLine > 0 ? upHandler() : downHandler();
+}
+
+})();

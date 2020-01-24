@@ -8,6 +8,18 @@
 
 html {
     font-size: 1/16 * 100%;
+    @include from(lg) {
+        font-size: 1/18 * 100%;
+    }
+    @include from(md) {
+        font-size: 1/24 * 100%
+    }
+    @include from(sm) {
+        font-size: 1/26 * 100%;
+    }
+    @include from(xs) {
+        font-size: 1/28 * 100%;
+    }
 }
 
 body {
@@ -32,6 +44,10 @@ a {
 }
 
 button {
+    @include formItem-clear;
+}
+
+input {
     @include formItem-clear;
 }
 
@@ -104,7 +120,6 @@ h4 {
     width: 100%;
 
     &__input {
-        @include formItem-clear;
         min-width: 0;
         width: 100%;
         color: $color-light;
@@ -117,7 +132,6 @@ h4 {
     }
 
     &__go {
-        @include formItem-clear;
         width: 20%;
         cursor: pointer;
     }
@@ -147,31 +161,54 @@ h4 {
 // <===== side-menu =====>
 
 .side-menu {
+    @include from(xs) {
+        width: 50px;
+    }
+    @include short {
+        top: 25px;
+    }
     position: fixed;
     z-index: 150;
     top: auto;
     bottom: auto;
-    left: 0px;
+    width: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
     text-align: center;
+    transition: $tr-snail;
 
     &.hidden &__item {
         transform: translate(-100%);
         opacity: 0;
+    }
+    
+    &.hidden {
+        width: 0px;
     }
 
     &__item {
         $after-w: 50;
         $after-sh: 10px;
 
+        @include from(xs) {
+            margin: 15 0;
+        }
+        @include short {
+            margin: 5 0;
+        }
         text-transform: uppercase;
         font-family: oswald;
 
         &::after {
+            @include from(xs) {
+                display: none;
+            }
+            @include short {
+                display: none;
+            }
             content: '';
             display: block;
             width: $after-w;
@@ -183,8 +220,8 @@ h4 {
         }
 
         & svg {
-            height: 50px;
-            width: 50px;
+            height: 50rem;
+            width: 50rem;
             fill: $color-light;
             transition: $tr-normal;
         }
@@ -215,9 +252,16 @@ h4 {
 .nav {
     $indicatorD: 10;
 
+    @include from(xs) {
+        width: 50px;
+    }
+    @include short {
+        top: 25px;
+    }
     position: fixed;
     z-index: 150;
     right: 0px;
+    width: 100px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -237,6 +281,9 @@ h4 {
         }
 
         &.active {
+            @include from(xs) {
+                transform: translate(($indicatorD + $leftOffset) / 2);
+            }
             color: $color-light;
             transform: translate($indicatorD + $leftOffset);
         }
@@ -244,7 +291,13 @@ h4 {
 
     &__indicator {
         $b: 2px;
+        $afterH: 2px;
 
+        @include from(xs) {
+            width: $indicatorD / 2;
+            height: $indicatorD / 2;
+            border-width: $b / 2;
+        }
         position: absolute;
         z-index: 175;
         width: $indicatorD;
@@ -253,13 +306,18 @@ h4 {
         border-radius: 50%;
 
         &::after {
-            $h: 2px;
+            @include from(xs) {
+                height: $afterH/2;
+                left: -5px;
+                right: -5px;
+                top: ($indicatorD - 2*$b - $afterH) / 4;
+            }
             content: '';
             position: absolute;
             left: -10;
             right: -10;
-            top: ($indicatorD - 2*$b - $h) / 2;
-            height: $h;
+            top: ($indicatorD - 2*$b - $afterH) / 2;
+            height: $afterH;
             background-color: transparentize($color-attention, 0.5);
             transition: $tr-longer;
         }
@@ -359,20 +417,40 @@ h4 {
     }
 
     &__scrolldown {
-        position: relative;
-        font: {
-            family: opensans;
-            size: 18rem;
+        @include from(sm) {
+            bottom: 15px;
         }
+        position: relative;
         position: absolute;
         bottom: 50px;
 
-        & span {
-            font-size: 11rem;
-            color: $color-muted;
+        &:hover {
+            h5::after {
+                width: 100%;
+            }
+
+            .mouse {
+                border-color: $color-accent;
+            }
+
+            span {
+                color: transparentize($color-accent, 0.4);
+            }
         }
 
-        & a {
+        & span {
+            font-family: opensans;
+            font-size: 11rem;
+            color: $color-muted;
+            transition: $tr-normal;
+        }
+
+        & h5 {
+            font: {
+                family: opensans;
+                size: 18rem;
+            }
+
             &::after {
                 content: '';
                 display: block;
@@ -393,6 +471,10 @@ h4 {
 }
 
 .mouse {
+    @include from(sm) {
+        transform: scale(0.7);
+    }
+
     $w: 30px;
     overflow: hidden;
     $bbr: $w/2;
@@ -415,6 +497,7 @@ h4 {
             right-radius: $btr;
         }
     }
+    transition: $tr-normal;
 
     &__wheel {
         $w: 4px;
@@ -499,13 +582,19 @@ h4 {
     }
 
     &__content {
+        @include from(xs) {
+            margin-left: 50px;
+            padding-left: 5px;
+        }
+
         position: relative;
         z-index: 100;
-        padding-left: $padding-headerItem*3 !important;
+        padding-left: 15 !important;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
+        margin-left: 100px;
     }
 
     &--salad {
@@ -561,19 +650,27 @@ h4 {
 
 // <===== menu =====>
 .menu {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
+    flex-wrap: wrap;
 
     &__item {
         $number: 5;
 
+        @include from(md) {
+            min-width: (100%/3);
+        }
+        @include from(sm) {
+            min-width: 100%;
+        }
+        flex-grow: 1;
         position: relative;
-        height: 100%;
         width: 100%/$number;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 20px 0px;
         background-size: cover;
         background-position: center;
         text-align: center;
@@ -584,6 +681,9 @@ h4 {
         }
 
         & .product-link {
+            @include from(md) {
+                opacity: 1;
+            }
             padding: 15px 40px;
             opacity: 0;
         }
@@ -658,7 +758,7 @@ h4 {
             top: 0px;
             bottom: 0px;
             left: 0px;
-            right: 0px;
+            right: 0px; 
             background: transparentize($color-dark, 0.5);
             transition: $tr-longer;
         }
@@ -669,37 +769,144 @@ h4 {
 
 .footer {
     position: relative;
+    z-index: 100;
+    padding: 25px calc(100%/12);
+    padding-bottom: 0px;
+    box-shadow: 0px 0px 20px $color-dark;
     
     &__content {
-        position: absolute;
-        z-index: 100;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 33%;
-        padding-top: 30px;
+        position: relative;
+        padding: 20px 0px;
+
+        &::after {
+            $h: 2px;
+            position: absolute;
+            bottom: -$h/2;
+            content: '';
+            display: block;
+            width: 100%;
+            height: $h;
+            background-color: $color-headerBorders;
+        }
+    }
+
+    &__brand {
+        margin-bottom: 10px;
+    }
+
+    &__item {
+        line-height: 16rem;
+        font-size: 16rem;
+        margin-bottom: 10px;
+        color: $color-muted;
+    }
+
+    &__titles {
+        padding-bottom: 5px;
+
+        & > * {
+            display: flex;
+            align-items: flex-end;
+        }
+    }
+
+    &__title {
+        font-family: oswald;
+        font-size: 16rem;
+        font-weight: normal;
+        margin-bottom: 10px;
+    }
+
+    &__text {
+        & > * {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    & .contacts {
+        text-align: left;
     }
 }
 
-.backcall-form {
-    &__btn {
-        cursor: pointer;
+.story {
+    @include from(sm) {
+        padding-right: 0px;
+    }
+    color: scale-color($color-muted, $lightness: -30%);
+    font-size: 13rem;
+    padding-right: 10px;
+}
 
-        svg {
-            width: 30px;
-            height: 30px;
-            fill: $color-accent;
+.payments {
+    font-size: 50rem;
+    line-height: 50rem;
+}
+
+.backcall-form {
+    $form-p: 5px;
+
+    width: 100%;
+    background-color: scale-color($color-dark, $lightness: 10%);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+
+    &-wrapper {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    &__input {
+        flex-grow: 1;
+        color: $color-light;
+        font-size: 18rem;
+        min-width: 0;
+        width: 100%;
+    }
+    &__btn {
+        position: static;
+        cursor: pointer;
+        transition: $tr-normal;
+        color: $color-accent;
+        font-size: 25rem;
+
+        &.hidden {
+            opacity: 0;
+            transform: translate(100%);
+            position: relative;
+            z-index: -100;
+        }
+    }
+    &__check {
+        position: static;
+        display: flex;
+        align-items: center;
+        margin: $form-p;
+        font-size: 25rem;
+        margin-left: 5px;
+        color: $color-accent;
+        transition: all $tr-normal;
+        transform: translate(0px);
+        opacity: 1;
+
+        &.hidden {
+            transform: translate(-100%);
+            opacity: 0;
+            position: relative;
+            z-index: -100;
         }
     }
 }
 
 .social {
-    margin: 0 auto;
+    display: flex;
     justify-content: center;
+    align-items: center;
 
     svg {
-        $side: 30px;
-        width: $side;
-        height: $side;
+        font-size: 25rem;
+        margin: 15px;
     }
 }
