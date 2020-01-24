@@ -2964,6 +2964,11 @@ h4 {
             justify-content: center;
     padding: 10 !important;
     border-right: 2px solid rgba(255, 255, 255, 0.1); }
+    .header__item a {
+      margin-left: 10px; }
+      @media (max-width: 991.98px) {
+        .header__item a {
+          margin-left: 8px; } }
     .header__item:last-child {
       border: none; }
   .header__menu {
@@ -3365,10 +3370,10 @@ h4 {
             align-items: flex-start;
     -webkit-box-pack: center;
             justify-content: center;
-    margin-left: 100px; }
+    margin-left: 150px; }
     @media (max-width: 575.98px) {
       .offer__content {
-        margin-left: 50px;
+        margin-left: 65px;
         padding-left: 5px; } }
   .offer--salad {
     background-image: url("/img/stock-salad.jfif"); }
@@ -3411,6 +3416,7 @@ h4 {
     -webkit-box-flex: 1;
             flex-grow: 1;
     position: relative;
+    height: 100vh;
     width: 20%;
     display: -webkit-box;
     display: flex;
@@ -3427,10 +3433,15 @@ h4 {
     text-align: center; }
     @media (max-width: 991.98px) {
       .menu__item {
-        min-width: 33.33333%; } }
-    @media (max-width: 767.98px) {
+        min-width: 33.33333%;
+        height: calc(100vh/2); } }
+    @media (max-width: 575.98px) {
       .menu__item {
-        min-width: 100%; } }
+        min-width: 100%;
+        height: auto; } }
+    @media (max-height: 540px) {
+      .menu__item .side-menu__item {
+        margin-bottom: 20px; } }
     .menu__item * {
       position: relative;
       z-index: 100; }
@@ -3496,7 +3507,8 @@ h4 {
       display: block;
       width: 100%;
       height: 2px;
-      background-color: rgba(255, 255, 255, 0.1); }
+      background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(50%, rgba(255, 255, 255, 0.1)), to(transparent));
+      background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%); }
   .footer__brand {
     margin-bottom: 10px; }
   .footer__item {
@@ -3524,20 +3536,27 @@ h4 {
             flex-direction: column; }
   .footer .contacts {
     text-align: left; }
+    .footer .contacts__phone {
+      font-family: opensans;
+      font-size: 18rem;
+      color: #b3b3b3;
+      margin-top: 5px; }
 
 .story {
   color: rgba(179, 179, 179, 0.5);
   font-size: 13rem;
-  padding-right: 10px; }
+  padding-right: 35px; }
   @media (max-width: 767.98px) {
     .story {
       padding-right: 0px; } }
 
 .payments {
-  font-size: 50rem;
-  line-height: 50rem; }
+  font-size: 45rem;
+  line-height: 45rem;
+  color: #b8b8b8; }
 
 .backcall-form {
+  position: relative;
   width: 100%;
   background-color: #2a2a2a;
   border-radius: 5px;
@@ -3545,7 +3564,7 @@ h4 {
   display: flex;
   -webkit-box-align: center;
           align-items: center;
-  padding: 5px; }
+  padding: 10px; }
   .backcall-form-wrapper {
     display: -webkit-box;
     display: flex;
@@ -3566,31 +3585,22 @@ h4 {
     font-size: 25rem; }
     .backcall-form__btn.hidden {
       opacity: 0;
-      -webkit-transform: translate(100%);
-              transform: translate(100%);
-      position: relative;
-      z-index: -100; }
+      -webkit-transform: scale(0);
+              transform: scale(0); }
   .backcall-form__check {
-    position: static;
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-align: center;
-            align-items: center;
-    margin: 5px;
+    position: absolute;
     font-size: 25rem;
-    margin-left: 5px;
     color: #F8C100;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
-    -webkit-transform: translate(0px);
-            transform: translate(0px);
-    opacity: 1; }
+    right: 10px;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    -webkit-transition-delay: 0.3s;
+            transition-delay: 0.3s; }
     .backcall-form__check.hidden {
-      -webkit-transform: translate(-100%);
-              transform: translate(-100%);
       opacity: 0;
-      position: relative;
-      z-index: -100; }
+      z-index: -100;
+      -webkit-transform: scale(0);
+              transform: scale(0); }
 
 .social {
   display: -webkit-box;

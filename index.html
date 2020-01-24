@@ -3,47 +3,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>eBurger</title>
+    <title>BRG</title>
     
     <link rel="stylesheet" href="libs/slick-carousel/slick.css">
     <link rel="stylesheet" href="bundle.css">
 </head>
 <body>
     <header class="header container-fluid p-0 row no-gutters">
-        <div class="header__item col col-lg-1">
-            <button class="header__menu"><i class="fas fa-bars"></i></button>
-        </div>
-
-        <div class="header__item d-none d-xl-flex col">
+        <div class="header__item d-none d-lg-flex col">
             <div class="header__brand d-flex align-items-center">
-                <i class="fas fa-hamburger"></i><div class="ml-2">eBurger</div>
+                <i class="fas fa-hamburger"></i><div class="ml-2">BRG</div>
             </div>
         </div>
 
-        <div class="header__item d-none d-md-flex col-2">
-            <form class="search-group d-flex" action="#" method="GET">
-                <input class="search-group__input" name="requestSomewhere" type="text" placeholder="Поиск еды...">
-                <button class="search-group__go"><i class="fas fa-search"></i></button>
-            </form>
+        <div class="header__item col">
+            <i class="fas fa-map-marked-alt"></i><a href="#track">Отследить</a>
         </div>
 
-        <div class="header__item col-8 col-sm-3 col-lg-3">
+        <div class="header__item col">
+            <i class="fas fa-shopping-cart"></i><a href="#cart">Корзина</a>
+        </div>
+
+        <div class="header__item d-none d-md-flex col-md-3 col-lg-3">
             <div class="contacts">
                 <div class="contacts__phone"><span>+7 123</span> 123 44 55</div>
                 <div class="contacts__worktime">время работы с <b>8:00</b> до <b>20:00</b></div>
             </div>
         </div>
 
-        <div class="header__item d-none d-sm-flex col-3 col-md-2 col-lg">
-            <i class="fas fa-map-marked-alt"></i>&nbsp;<a href="#track">Отследить заказ</a>
+        <div class="header__item col col-lg-3">
+            <form class="search-group d-flex" action="#" method="GET">
+                <input class="search-group__input" name="requestSomewhere" type="text" placeholder="Поиск...">
+                <button class="search-group__go"><i class="fas fa-search"></i></button>
+            </form>
         </div>
 
-        <div class="header__item d-none d-sm-flex col-3 col-md-2 col-lg">
-            <i class="fas fa-shopping-cart"></i>&nbsp;<a href="#cart">Корзина</a>
-        </div>
-
-        <div class="header__item col col-md-2 col-lg login">
-            <i class="fas fa-user"></i><a href="#login">&nbsp;Вход</a>
+        <div class="header__item col">
+            <i class="fas fa-user"></i><a href="#login">Вход</a>
         </div>
     </header>
 
@@ -172,10 +168,8 @@
     <footer class="footer">
         <div class="footer__content">
             <div class="footer__titles row">
-                <div class="d-none d-sm-flex col col-md-3">
-                    <div class="footer__brand header__brand d-flex align-items-center">
-                        <i class="fas fa-hamburger"></i><div class="ml-2">eBurger</div>
-                    </div>
+                <div class="d-none d-sm-flex col col-md-4">
+                    <h5 class="footer__title">Наша история</h5>
                 </div>
                 
                 <div class="col-3 col-sm">
@@ -187,7 +181,7 @@
                 </div>
 
                 <div class="col d-none d-lg-flex">
-                    <h5 class="footer__title">Оплата</h5>
+                    <h5 class="footer__title">Мы принимаем</h5>
                 </div>
 
                 <div class="col-6 col-sm-5 col-lg-3">
@@ -196,7 +190,7 @@
             </div>
             
             <div class="footer__text row">
-                <div class="d-none d-sm-block col col-md-3">     
+                <div class="d-none d-sm-block col col-md-4">     
                     <p class="story">Компания была основана в 2007 году. Спустя несколько лет сеть ресторанов распространилась по всей Москве, заняв значимое место в городской инфрастуктуре.</p>
                 </div>
     
@@ -225,12 +219,12 @@
                         <form action="#backcallRequest" method="GET" class="backcall-form">
                             <input type="phone" class="backcall-form__input" value="+7">
                             <button class="backcall-form__btn"><i class="fas fa-phone"></i></button>
+                            <div class="backcall-form__check hidden"><i class="fas fa-check-circle"></i></div>
                         </form>
-                        <div class="backcall-form__check hidden"><i class="fas fa-check-circle"></i></div>
                     </div>
                     <div class="contacts">
                         <div class="contacts__phone"><span>+7 123</span> 123 44 55</div>
-                        <div class="contacts__worktime">время работы с <b>8:00</b> до <b>20:00</b></div>
+                        <div class="contacts__worktime">с 8:00 до 20:00</div>
                     </div>
                 </div>
             </div>
