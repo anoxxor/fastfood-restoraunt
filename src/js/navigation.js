@@ -101,63 +101,71 @@ $('.menu').click(function() {
 
 
 
-// move handlers
 
-function overDownHandler() {
-    console.log('overdown');
-}
 
-function overUpHandler() {
-    console.log('overup');
-}
 
-function downHandler(touchLine) {
-    let curElemIndex = lastIndex;
-    if (curElemIndex === topOffsets.lenhts - 1) {
-        overDownHandler();
-        return;
+
+
+
+
+function magnetic()
+{
+    function overDownHandler()
+    {
+        console.log('overdown');
     }
-    scrollTo(curElemIndex + 1);
 
-}
+    function overUpHandler()
+    {
+        console.log('overup');
+    }
 
-function upHandler(touchLine) {
-    let curElemIndex = lastIndex;
-    if (curElemIndex === 0) {
-        overUpHandler();
-        return;
-    };
-    scrollTo(curElemIndex - 1);
-}
+    function downHandler(touchLine)
+    {
+        let curElemIndex = lastIndex;
+        if (curElemIndex === topOffsets.lenhts - 1) {
+            overDownHandler();
+            return;
+        }
+        scrollTo(curElemIndex + 1);
 
+    }
 
-// attaching
+    function upHandler(touchLine) {
+        let curElemIndex = lastIndex;
+        if (curElemIndex === 0) {
+            overUpHandler();
+            return;
+        };
+        scrollTo(curElemIndex - 1);
+    }
 
-// $(window).on('touchstart', onTouchstart);
-// $(window).on('touchend', onTouchend);
-// $(window).on('wheel mousewheel MozMousePixelScroll', onWheel);
+    $(window).on('touchstart', onTouchstart);
+    $(window).on('touchend', onTouchend);
+    $(window).on('wheel mousewheel MozMousePixelScroll', onWheel);
 
+    let touchstartPos;
 
-// event handlers
+    function onWheel(e)
+    {
+        if (autoscroll) return;
+        e = e.originalEvent;
+        var delta = e.deltaY || e.detail || e.wheelDelta;
+        delta < 0 ? upHandler() : downHandler();
+    }
 
-let touchstartPos;
+    function onTouchstart(e)
+    {
+        if (autoscroll) return;
+        touchstartPos = e.changedTouches[0].pageY;
+    }
 
-function onWheel(e) {
-    if (autoscroll) return;
-    e = e.originalEvent;
-    var delta = e.deltaY || e.detail || e.wheelDelta;
-    delta < 0 ? upHandler() : downHandler();
-}
-
-function onTouchstart(e) {
-    if (autoscroll) return;
-    touchstartPos = e.changedTouches[0].pageY;
-}
-
-function onTouchend(e) {
-    if (autoscroll) return;
-    let touchLine = e.changedTouches[0].pageY - touchstartPos;
-    touchLine > 0 ? upHandler() : downHandler();
+    function onTouchend(e)
+    {
+        if (autoscroll) return;
+        let touchLine = e.changedTouches[0].pageY - touchstartPos;
+        touchLine > 0 ? upHandler() : downHandler();
+    }
 }
 
 })();

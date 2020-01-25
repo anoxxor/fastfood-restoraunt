@@ -129,62 +129,62 @@
   $('.menu').click(function () {
     $('.nav').addClass('hidden');
     $('.nav-slideIn').removeClass('hidden');
-  }); // move handlers
+  });
 
-  function overDownHandler() {
-    console.log('overdown');
-  }
-
-  function overUpHandler() {
-    console.log('overup');
-  }
-
-  function downHandler(touchLine) {
-    var curElemIndex = lastIndex;
-
-    if (curElemIndex === topOffsets.lenhts - 1) {
-      overDownHandler();
-      return;
+  function magnetic() {
+    function overDownHandler() {
+      console.log('overdown');
     }
 
-    scrollTo(curElemIndex + 1);
-  }
-
-  function upHandler(touchLine) {
-    var curElemIndex = lastIndex;
-
-    if (curElemIndex === 0) {
-      overUpHandler();
-      return;
+    function overUpHandler() {
+      console.log('overup');
     }
 
-    ;
-    scrollTo(curElemIndex - 1);
-  } // attaching
-  // $(window).on('touchstart', onTouchstart);
-  // $(window).on('touchend', onTouchend);
-  // $(window).on('wheel mousewheel MozMousePixelScroll', onWheel);
-  // event handlers
+    function downHandler(touchLine) {
+      var curElemIndex = lastIndex;
 
+      if (curElemIndex === topOffsets.lenhts - 1) {
+        overDownHandler();
+        return;
+      }
 
-  var touchstartPos;
+      scrollTo(curElemIndex + 1);
+    }
 
-  function onWheel(e) {
-    if (autoscroll) return;
-    e = e.originalEvent;
-    var delta = e.deltaY || e.detail || e.wheelDelta;
-    delta < 0 ? upHandler() : downHandler();
-  }
+    function upHandler(touchLine) {
+      var curElemIndex = lastIndex;
 
-  function onTouchstart(e) {
-    if (autoscroll) return;
-    touchstartPos = e.changedTouches[0].pageY;
-  }
+      if (curElemIndex === 0) {
+        overUpHandler();
+        return;
+      }
 
-  function onTouchend(e) {
-    if (autoscroll) return;
-    var touchLine = e.changedTouches[0].pageY - touchstartPos;
-    touchLine > 0 ? upHandler() : downHandler();
+      ;
+      scrollTo(curElemIndex - 1);
+    }
+
+    $(window).on('touchstart', onTouchstart);
+    $(window).on('touchend', onTouchend);
+    $(window).on('wheel mousewheel MozMousePixelScroll', onWheel);
+    var touchstartPos;
+
+    function onWheel(e) {
+      if (autoscroll) return;
+      e = e.originalEvent;
+      var delta = e.deltaY || e.detail || e.wheelDelta;
+      delta < 0 ? upHandler() : downHandler();
+    }
+
+    function onTouchstart(e) {
+      if (autoscroll) return;
+      touchstartPos = e.changedTouches[0].pageY;
+    }
+
+    function onTouchend(e) {
+      if (autoscroll) return;
+      var touchLine = e.changedTouches[0].pageY - touchstartPos;
+      touchLine > 0 ? upHandler() : downHandler();
+    }
   }
 })();
 
