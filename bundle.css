@@ -3210,7 +3210,7 @@ h4 {
   -webkit-box-pack: center;
           justify-content: center;
   height: 100vh;
-  background-image: url("/img/hero.jfif");
+  background-image: url("img/hero.jfif");
   background-size: cover;
   background-position: center;
   text-align: center;
@@ -3376,11 +3376,11 @@ h4 {
         margin-left: 65px;
         padding-left: 5px; } }
   .offer--salad {
-    background-image: url("/img/stock-salad.jfif"); }
+    background-image: url("img/stock-salad.jfif"); }
   .offer--desert {
-    background-image: url("/img/stock-dessert.jfif"); }
+    background-image: url("img/stock-dessert.jfif"); }
   .offer--drinks {
-    background-image: url("/img/stock-drinks.jfif"); }
+    background-image: url("img/stock-drinks.jfif"); }
 
 .discount-percent {
   color: #FF0000;
@@ -3467,15 +3467,15 @@ h4 {
       width: 120px;
       box-shadow: 0px 0px 0px -1px rgba(255, 255, 255, 0.3), 0px 0px 0px -1px rgba(255, 255, 255, 0.3); }
     .menu__item--burgers {
-      background-image: url("/img/menu-burgers.jfif"); }
+      background-image: url("img/menu-burgers.jfif"); }
     .menu__item--garnish {
-      background-image: url("/img/menu-garnish.jfif"); }
+      background-image: url("img/menu-garnish.jfif"); }
     .menu__item--salads {
-      background-image: url("/img/menu-salads.jfif"); }
+      background-image: url("img/menu-salads.jfif"); }
     .menu__item--desserts {
-      background-image: url("/img/menu-desserts.jfif"); }
+      background-image: url("img/menu-desserts.jfif"); }
     .menu__item--drinks {
-      background-image: url("/img/menu-drinks.jfif"); }
+      background-image: url("img/menu-drinks.jfif"); }
     .menu__item:hover::after {
       background: rgba(18, 18, 18, 0.9); }
     .menu__item:hover .product-link {
@@ -3615,29 +3615,29 @@ h4 {
 
 @font-face {
   font-family: 'opensans';
-  src: url("/fonts/OpenSans-Regular.eot");
-  src: url("/fonts/OpenSans-Regular.eot?#iefix") format("embedded-opentype"), url("/fonts/OpenSans-Regular.woff") format("woff"), url("/fonts/OpenSans-Regular.ttf") format("truetype");
+  src: url("fonts/OpenSans-Regular.eot");
+  src: url("fonts/OpenSans-Regular.eot?#iefix") format("embedded-opentype"), url("fonts/OpenSans-Regular.woff") format("woff"), url("fonts/OpenSans-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal; }
 
 @font-face {
   font-family: 'opensans-italic';
-  src: url("/fonts/OpenSans-Italic.eot");
-  src: url("/fonts/OpenSans-Italic.eot?#iefix") format("embedded-opentype"), url("/fonts/OpenSans-Italic.woff") format("woff"), url("/fonts/OpenSans-Italic.ttf") format("truetype");
+  src: url("fonts/OpenSans-Italic.eot");
+  src: url("fonts/OpenSans-Italic.eot?#iefix") format("embedded-opentype"), url("fonts/OpenSans-Italic.woff") format("woff"), url("fonts/OpenSans-Italic.ttf") format("truetype");
   font-weight: normal;
   font-style: normal; }
 
 @font-face {
   font-family: 'oswald';
-  src: url("/fonts/Oswald-Regular.eot");
-  src: url("/fonts/Oswald-Regular.eot?#iefix") format("embedded-opentype"), url("/fonts/Oswald-Regular.woff") format("woff"), url("/fonts/Oswald-Regular.ttf") format("truetype");
+  src: url("fonts/Oswald-Regular.eot");
+  src: url("fonts/Oswald-Regular.eot?#iefix") format("embedded-opentype"), url("fonts/Oswald-Regular.woff") format("woff"), url("fonts/Oswald-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal; }
 
 @font-face {
   font-family: 'sourcesanspro-black';
-  src: url("/fonts/SourceSansPro-Black.eot");
-  src: url("/fonts/SourceSansPro-Black.eot?#iefix") format("embedded-opentype"), url("/fonts/SourceSansPro-Black.woff") format("woff"), url("/fonts/SourceSansPro-Black.ttf") format("truetype");
+  src: url("fonts/SourceSansPro-Black.eot");
+  src: url("fonts/SourceSansPro-Black.eot?#iefix") format("embedded-opentype"), url("fonts/SourceSansPro-Black.woff") format("woff"), url("fonts/SourceSansPro-Black.ttf") format("truetype");
   font-weight: normal;
   font-style: normal; }
 
